@@ -33,6 +33,13 @@ class TweetsController < ApplicationController
     @comments = @tweet.comments.includes(:user)
   end
 
+  # 脆弱性対策を持たせた記述
+  # def self.search(search)
+  #   return Tweet.all unless search
+  #   search = "%#{search}%"
+  #   Tweet.find_by_sql(["select * from tweets where text like ? ", search])
+  # end
+
   def search
     @tweets = Tweet.search(params[:keyword])
     respond_to do |format|
